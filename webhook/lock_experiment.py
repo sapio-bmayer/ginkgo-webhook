@@ -20,12 +20,13 @@ class LockExperimentWebhookHandler(AbstractWebhookHandler):
 
         # If we do not have a response from the user, prompt the user
         callback_result: OptionDialogResult = context.client_callback_result
-        print(context.client_callback_result)
-        print(context.client_callback_result.get_callback_type())
         if not callback_result:
             request = OptionDialogRequest('Lock Experiment?', 'Should this experiment be locked?', ['Yes', 'No'], 1,
                                           True)
             return SapioWebhookResult(True, client_callback_request=request)
+
+        print(context.client_callback_result)
+        print(context.client_callback_result.get_callback_type())
 
         # If the user cancelled or said 'No', return and do nothing
         print(callback_result.selection)
