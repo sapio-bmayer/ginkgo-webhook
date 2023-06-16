@@ -23,7 +23,7 @@ class ShowFormWebhookHandler(AbstractWebhookHandler):
             # Build what the form will look like
             form_builder: FormBuilder = FormBuilder()
             id_field = VeloxStringFieldDefinition(form_builder.get_data_type_name(), 'ProjectId',
-                                                  "Project ID", max_length=2000)
+                                                  "Sapio ELN Project ID", max_length=2000)
             id_field.editable = False
             id_field.default_value = project_id
             form_builder.add_field(id_field)
@@ -32,6 +32,10 @@ class ShowFormWebhookHandler(AbstractWebhookHandler):
             ginkgo_id_field.editable = False
             ginkgo_id_field.default_value = 'Ginkgo_' + project_id
             form_builder.add_field(ginkgo_id_field)
+            ginkgo_comments_field = VeloxStringFieldDefinition(form_builder.get_data_type_name(), 'GinkgoComments',
+                                                               "Ginkgo Comments", max_length=2000)
+            ginkgo_comments_field.editable = True
+            form_builder.add_field(ginkgo_comments_field)
             temp_dt = form_builder.get_temporary_data_type()
 
             request = FormEntryDialogRequest('External Project Details', '', data_type_def=temp_dt)
