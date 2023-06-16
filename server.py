@@ -1,6 +1,7 @@
 from sapiopylib.rest.WebhookService import WebhookConfiguration, WebhookServerFactory
 
 from webhook.create_details import CreateDetailsWebhookHandler
+from webhook.create_samples import CreateSamplesWebhookHandler
 from webhook.hello_world import HelloWorldWebhookHandler
 from waitress import serve
 
@@ -19,6 +20,7 @@ config.register('/lock_experiment', LockExperimentWebhookHandler)
 config.register('/show_table', ShowTableWebhookHandler)
 config.register('/show_form', ShowFormWebhookHandler)
 config.register('/on_save', OnSaveWebhookHandler)
+config.register('/create_samples', CreateSamplesWebhookHandler)
 
 
 # Create a flask application with the Sapio Webhook configuration

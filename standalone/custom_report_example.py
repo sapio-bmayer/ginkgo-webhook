@@ -22,3 +22,9 @@ request = CustomReportCriteria(column_list, root_term, page_size=100, page_numbe
 report = report_manager.run_custom_report(request)
 data_frame = report.get_data_frame()
 print(data_frame)
+
+# Call a search by name
+print('Calling Samples and Projects report')
+report = report_manager.run_system_report_by_name('Samples and Projects', 100, 0)
+data_frame = report.get_data_frame()
+print(data_frame)
