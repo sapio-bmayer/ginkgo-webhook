@@ -10,8 +10,8 @@ from webhook.populate_list import PopulateListWebhookHandler
 config: WebhookConfiguration = WebhookConfiguration(verify_sapio_cert=False, debug=True)
 config.register('/hello_world', HelloWorldWebhookHandler)
 config.register('/populate_list', PopulateListWebhookHandler)
-config.register('/create_details', HelloWorldWebhookHandler)  # TODO
-config.register('/lock_experiment', HelloWorldWebhookHandler)  # TODO
+# config.register('/create_details', HelloWorldWebhookHandler)  # TODO
+# config.register('/lock_experiment', HelloWorldWebhookHandler)  # TODO
 
 
 # Create a flask application with the Sapio Webhook configuration
