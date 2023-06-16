@@ -2,6 +2,7 @@ from typing import List, Dict, Any
 
 from sapiopylib.rest.WebhookService import AbstractWebhookHandler
 from sapiopylib.rest.pojo.DataRecord import DataRecord
+from sapiopylib.rest.pojo.eln.ExperimentEntry import ExperimentEntry
 from sapiopylib.rest.pojo.eln.ExperimentEntryCriteria import ElnEntryCriteria
 from sapiopylib.rest.pojo.eln.SapioELNEnums import ElnEntryType
 from sapiopylib.rest.pojo.webhook.WebhookContext import SapioWebhookContext
@@ -17,7 +18,10 @@ class CreateSamplesWebhookHandler(AbstractWebhookHandler):
 
     def run(self, context: SapioWebhookContext) -> SapioWebhookResult:
         # Get the sample entry and the records
-        sample_entry = context.experiment_entry_list[0]
+        entries = context.eln_manager.get_experiment_entry_list(context.eln_experiment.notebook_experiment_id,
+                                                                to_retrieve_field_definitions=False)
+        name_to_entry: Dict[str, ExperimentEntry] = {entry.entry_name: entry for entry in entries}
+        sample_entry = name_to_entry['Samples']
         samples = context.eln_manager.get_data_records_for_entry(context.eln_experiment.notebook_experiment_id,
                                                                  sample_entry.entry_id).result_list
 
