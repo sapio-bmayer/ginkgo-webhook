@@ -25,13 +25,8 @@ class LockExperimentWebhookHandler(AbstractWebhookHandler):
                                           True)
             return SapioWebhookResult(True, client_callback_request=request)
 
-        print(context.client_callback_result)
-        print(context.client_callback_result.get_callback_type())
-
         # If the user cancelled or said 'No', return and do nothing
-        print(callback_result.selection)
-        print(callback_result.button_text)
-        if callback_result.user_cancelled or callback_result.selection != 0:
+        if callback_result.user_cancelled or callback_result.button_text != 'Yes':
             return SapioWebhookResult(True)
 
         # Complete the experiment
