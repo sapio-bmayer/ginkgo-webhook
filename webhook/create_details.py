@@ -38,6 +38,7 @@ class CreateDetailsWebhookHandler(AbstractWebhookHandler):
         detail_fields_list: List[Dict[str, Any]] = list()
         for sample in samples:
             detail_fields: Dict[str, Any] = dict()
+            detail_fields_list.append(detail_fields)
             detail_fields['SampleId'] = sample.get_field_value('SampleId')
             detail_fields['OtherSampleId'] = sample.get_field_value('OtherSampleId')
             detail_fields['GinkgoMaterial'] = sample.get_field_value('C_GinkgoMaterial')
