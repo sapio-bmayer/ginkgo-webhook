@@ -47,7 +47,7 @@ class ShowTableWebhookHandler(AbstractWebhookHandler):
                 table_data: Dict[str, Any] = dict()
                 table_data_list.append(table_data)
                 table_data['SampleId'] = sample.get_field_value('SampleId')
-                table_data['Comments'] = sample.get_field_value('A sample comment ' + str(comment_index))
+                table_data['Comments'] = 'A sample comment ' + str(comment_index)
 
             request = TableEntryDialogRequest('External Sample Details', '', data_type_def=temp_dt,
                                               field_map_list=table_data_list)

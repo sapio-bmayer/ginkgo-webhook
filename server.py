@@ -5,7 +5,9 @@ from webhook.hello_world import HelloWorldWebhookHandler
 from waitress import serve
 
 from webhook.lock_experiment import LockExperimentWebhookHandler
+from webhook.on_save import OnSaveWebhookHandler
 from webhook.populate_list import PopulateListWebhookHandler
+from webhook.show_form import ShowFormWebhookHandler
 from webhook.show_table import ShowTableWebhookHandler
 
 # Create the Sapio webhook configuration that will handle the processing of
@@ -15,8 +17,8 @@ config.register('/populate_list', PopulateListWebhookHandler)
 config.register('/create_details', CreateDetailsWebhookHandler)
 config.register('/lock_experiment', LockExperimentWebhookHandler)
 config.register('/show_table', ShowTableWebhookHandler)
-# config.register('/table_button', )
-# config.register('/on_save', )
+config.register('/show_form', ShowFormWebhookHandler)
+config.register('/on_save', OnSaveWebhookHandler)
 
 
 # Create a flask application with the Sapio Webhook configuration
