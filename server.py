@@ -4,10 +4,14 @@ from sapiopylib.rest.WebhookService import WebhookConfiguration, WebhookServerFa
 from webhook.hello_world import HelloWorldWebhookHandler
 from waitress import serve
 
+from webhook.populate_list import PopulateListWebhookHandler
 
 # Create the Sapio webhook configuration that will handle the processing of
 config: WebhookConfiguration = WebhookConfiguration(verify_sapio_cert=False, debug=True)
 config.register('/hello_world', HelloWorldWebhookHandler)
+config.register('/populate_list', PopulateListWebhookHandler)
+config.register('/create_details', HelloWorldWebhookHandler)  # TODO
+config.register('/lock_experiment', HelloWorldWebhookHandler)  # TODO
 
 
 # Create a flask application with the Sapio Webhook configuration
