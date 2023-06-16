@@ -13,6 +13,11 @@ class LockExperimentWebhookHandler(AbstractWebhookHandler):
     """
 
     def run(self, context: SapioWebhookContext) -> SapioWebhookResult:
+        # If the experiment is already locked, inform user and do nothing
+        current_status = context.eln_experiment.notebook_experiment_status
+        if current_status == ElnExperimentStatus.Completed:
+            return SapioWebhookResult(True, display_text="The experiment is already locked.")
+
         # If we do not have a response from the user, prompt the user
         callback_result: OptionDialogResult = context.client_callback_result
         if not callback_result:
