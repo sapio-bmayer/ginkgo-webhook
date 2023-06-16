@@ -17,6 +17,7 @@ class CreateDetailsWebhookHandler(AbstractWebhookHandler):
         sample_entry = context.experiment_entry_list[0]
         samples = context.eln_manager.get_data_records_for_entry(context.eln_experiment.notebook_experiment_id,
                                                                  sample_entry.entry_id).result_list
+        print(samples)
 
         # Get the Ginkgo Material and Amount fields
         ginkgo_amount_field = context.eln_manager.get_predefined_field_by_name(ElnBaseDataType.SAMPLE_DETAIL,
@@ -42,6 +43,7 @@ class CreateDetailsWebhookHandler(AbstractWebhookHandler):
             detail_fields['SampleId'] = sample.get_field_value('SampleId')
             detail_fields['OtherSampleId'] = sample.get_field_value('OtherSampleId')
             detail_fields['GinkgoMaterial'] = sample.get_field_value('C_GinkgoMaterial')
+        print(detail_fields_list)
 
         detail_records = context.data_record_manager.add_data_records_with_data(detail_entry.data_type_name,
                                                                                 detail_fields_list)
