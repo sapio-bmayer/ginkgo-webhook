@@ -1,3 +1,4 @@
-sapiopylib~=2023.5.19.139
+sapiopylib~=2023.6.17.147
 waitress~=2.0.0
 markdown
+slackclient

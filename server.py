@@ -10,6 +10,7 @@ from webhook.on_save import OnSaveWebhookHandler
 from webhook.populate_list import PopulateListWebhookHandler
 from webhook.show_form import ShowFormWebhookHandler
 from webhook.show_table import ShowTableWebhookHandler
+from webhook.slack_example import SlackIntegration
 
 # Create the Sapio webhook configuration that will handle the processing of
 config: WebhookConfiguration = WebhookConfiguration(verify_sapio_cert=False, debug=True)
@@ -21,6 +22,7 @@ config.register('/show_table', ShowTableWebhookHandler)
 config.register('/show_form', ShowFormWebhookHandler)
 config.register('/on_save', OnSaveWebhookHandler)
 config.register('/create_samples', CreateSamplesWebhookHandler)
+config.register('/slack', SlackIntegration)
 
 
 # Create a flask application with the Sapio Webhook configuration
