@@ -75,7 +75,6 @@ def get_slack_users(token: str) -> Dict[str, str]:
                     elif 'real_name' in profile:
                         user_name = profile['real_name']
                     else:
-                        print(user)
                         user_name = user['name']
                 else:
                     user_name = user['name']
@@ -128,11 +127,10 @@ class SlackIntegration(AbstractWebhookHandler):
         name_to_id = get_slack_users(api_key)
         if user_field not in response_map.keys():
             return prompt_for_user(api_key, list(name_to_id.keys()))
-        user: str = response_map[user_field]
-        print(str(user))
+        user: int = response_map[user_field]
 
         # Send chat message
-        user_id: str = name_to_id[user]
+        user_id: str = list(name_to_id.keys())[user]
         experiment: str = context.eln_experiment.notebook_experiment_name
         url: str = "https://ginkgo.exemplareln.com/veloxClient/#notebookExperimentId=" + \
                    str(context.eln_experiment.notebook_experiment_id) + ";view=eln"
