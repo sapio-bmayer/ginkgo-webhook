@@ -130,7 +130,7 @@ class SlackIntegration(AbstractWebhookHandler):
         user: int = response_map[user_field]
 
         # Send chat message
-        user_id: str = list(name_to_id.keys())[user]
+        user_id: str = name_to_id[list(name_to_id.keys())[user]]
         experiment: str = context.eln_experiment.notebook_experiment_name
         url: str = "https://ginkgo.exemplareln.com/veloxClient/#notebookExperimentId=" + \
                    str(context.eln_experiment.notebook_experiment_id) + ";view=eln"
