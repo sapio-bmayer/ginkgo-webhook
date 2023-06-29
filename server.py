@@ -8,6 +8,7 @@ from waitress import serve
 from webhook.lock_experiment import LockExperimentWebhookHandler
 from webhook.on_save import OnSaveWebhookHandler
 from webhook.populate_list import PopulateListWebhookHandler
+from webhook.set_fields import SetFieldsWebhookHandler
 from webhook.show_form import ShowFormWebhookHandler
 from webhook.show_table import ShowTableWebhookHandler
 from webhook.slack_example import SlackIntegration
@@ -23,6 +24,7 @@ config.register('/show_form', ShowFormWebhookHandler)
 config.register('/on_save', OnSaveWebhookHandler)
 config.register('/create_samples', CreateSamplesWebhookHandler)
 config.register('/slack', SlackIntegration)
+config.register('/set_fields', SetFieldsWebhookHandler)
 
 
 # Create a flask application with the Sapio Webhook configuration
