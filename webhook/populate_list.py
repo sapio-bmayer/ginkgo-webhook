@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict, Any
 
 from sapiopylib.rest.WebhookService import AbstractWebhookHandler
 from sapiopylib.rest.pojo.webhook.WebhookContext import SapioWebhookContext
@@ -11,16 +11,35 @@ class PopulateListWebhookHandler(AbstractWebhookHandler):
     """
 
     def run(self, context: SapioWebhookContext) -> SapioWebhookResult:
-        ginkgo_materials: List[str] = list()
-        ginkgo_materials.append('OZ-AI20100')
-        ginkgo_materials.append('OZ-AI20250')
-        ginkgo_materials.append('OZ-AI20500')
-        ginkgo_materials.append('OZ-AI21000')
-        ginkgo_materials.append('OZ-AI20050')
-        ginkgo_materials.append('NM_182961')
-        ginkgo_materials.append('FuGENE® 4K Transfection Reagent')
-        ginkgo_materials.append('80% Ethanol')
-        ginkgo_materials.append('10XNSPI')
-        ginkgo_materials.append('BDH20880.100E')
+        # Get the 'Cell Class' value from the provided context
+        fields: Dict[str, Any] = context.field_map
+        if not fields or 'C_Class1' not in fields.keys():
+            return SapioWebhookResult(True)
+        cell_class: str = fields['C_Class1']
+        if not cell_class or len(cell_class) < 1:
+            return SapioWebhookResult(True)
 
-        return SapioWebhookResult(True, list_values=ginkgo_materials)
+        # Determine the 'Cell Superclass' value from the provided cell class
+        cell_superclasses: List[str] = list()
+        if 'malignant cell' == cell_class:
+            cell_superclasses.append('neoplastic cell')
+        elif 'neoplastic cell' == cell_class:
+            cell_superclasses.append('abnormal cell')
+        elif 'fenestrated cell' == cell_class:
+            cell_superclasses.append('somatic cell')
+        elif 'somatic cell' == cell_class:
+            cell_superclasses.append('native cell')
+        elif 'primary cultured cell' == cell_class:
+            cell_superclasses.append('cultured cell')
+        elif 'cultured cell' == cell_class:
+            cell_superclasses.append('experimentally modified cell in vitro')
+        elif 'spheroplast' == cell_class:
+            cell_superclasses.append('protoplast')
+        elif 'protoplast' == cell_class:
+            cell_superclasses.append('experimentally modified cell in vitro')
+        elif 'experimentally modified cell in vitro' == cell_class:
+            cell_superclasses.append('cell in vitro')
+        else:
+            cell_superclasses.append('cell')
+
+        return SapioWebhookResult(True, list_values=cell_superclasses)
